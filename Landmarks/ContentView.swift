@@ -13,29 +13,37 @@ struct ContentView: View {
     @Query private var items: [Item]
 
     var body: some View {
-        NavigationSplitView {
-            List {
-                ForEach(items) { item in
-                    NavigationLink {
-                        Text("Item at \(item.timestamp, format: Date.FormatStyle(date: .numeric, time: .standard))")
-                    } label: {
-                        Text(item.timestamp, format: Date.FormatStyle(date: .numeric, time: .standard))
-                    }
+        VStack
+        {
+            MapView()
+                .frame(height:300)
+            
+            CircleImage()
+                .offset(y: -130)
+                .padding(.bottom, -130)
+            
+            VStack(alignment: .leading)
+            {
+                Text("Turtle Rock")
+                    .font(.title)
+                HStack
+                {
+                Text("Joshua Tree National Park")
+                    .font(.subheadline)
+                Spacer()
+                Text("California")
+                    .font(.subheadline)
                 }
-                .onDelete(perform: deleteItems)
+                .font(.subheadline)
+                .foregroundStyle(.secondary)
+                Divider()
+                Text("About Turtle Rock")
+                    .font(.title2)
+                Text("Turtle Rock in Wyoming is a fascinating natural landmark located within the Vedauwoo Recreation Area, which is situated in the Medicine Bow-Routt National Forest in southeastern Wyoming. Vedauwoo, derived from an Arapaho word meaning 'earth-born,' is renowned for its dramatic and rugged granite formations that have been shaped by millions of years of geological activity.")
             }
-            .toolbar {
-                ToolbarItem(placement: .navigationBarTrailing) {
-                    EditButton()
-                }
-                ToolbarItem {
-                    Button(action: addItem) {
-                        Label("Add Item", systemImage: "plus")
-                    }
-                }
-            }
-        } detail: {
-            Text("Select an item")
+            .padding()
+            
+            Spacer()
         }
     }
 
